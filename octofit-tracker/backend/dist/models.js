@@ -6,7 +6,9 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.Workout = exports.LeaderboardEntry = exports.Activity = exports.Team = exports.User = exports.mongoUri = void 0;
 exports.connectToDatabase = connectToDatabase;
 const mongoose_1 = __importDefault(require("mongoose"));
-exports.mongoUri = process.env.MONGODB_URI || 'mongodb://127.0.0.1:27017/octofit_db';
+const database_1 = require("./config/database");
+var database_2 = require("./config/database");
+Object.defineProperty(exports, "mongoUri", { enumerable: true, get: function () { return database_2.mongoUri; } });
 const userSchema = new mongoose_1.default.Schema({
     name: { type: String, required: true },
     email: { type: String, required: true, unique: true },
@@ -43,6 +45,6 @@ async function connectToDatabase() {
     if (mongoose_1.default.connection.readyState === 1) {
         return mongoose_1.default.connection;
     }
-    await mongoose_1.default.connect(exports.mongoUri);
+    await mongoose_1.default.connect(database_1.mongoUri);
     return mongoose_1.default.connection;
 }

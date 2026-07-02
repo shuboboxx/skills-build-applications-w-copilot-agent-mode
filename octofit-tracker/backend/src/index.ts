@@ -2,13 +2,12 @@ import express from 'express';
 import mongoose from 'mongoose';
 import {
   Activity,
-  connectToDatabase,
   LeaderboardEntry,
   Team,
   User,
-  Workout,
-  mongoUri
+  Workout
 } from './models';
+import { connectToDatabase, mongoUri } from './config/database';
 
 const app = express();
 const port = Number(process.env.PORT || 8000);

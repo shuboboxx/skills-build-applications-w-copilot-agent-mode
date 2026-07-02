@@ -5,6 +5,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const models_1 = require("./models");
+const database_1 = require("./config/database");
 const app = (0, express_1.default)();
 const port = Number(process.env.PORT || 8000);
 const codespaceName = process.env.CODESPACE_NAME;
@@ -38,7 +39,7 @@ app.get('/api/health', (_req, res) => {
 });
 async function listWithFallback(model, fallback) {
     try {
-        await (0, models_1.connectToDatabase)();
+        await (0, database_1.connectToDatabase)();
         const docs = await model.find().lean();
         return { data: docs, source: 'mongodb' };
     }
@@ -49,7 +50,7 @@ async function listWithFallback(model, fallback) {
 }
 async function createWithFallback(model, payload, fallback) {
     try {
-        await (0, models_1.connectToDatabase)();
+        await (0, database_1.connectToDatabase)();
         const document = await model.create(payload);
         return { data: document, source: 'mongodb' };
     }
@@ -109,8 +110,8 @@ app.post('/api/workouts', async (req, res) => {
 });
 async function start() {
     try {
-        await (0, models_1.connectToDatabase)();
-        console.log(`MongoDB connected to ${models_1.mongoUri}`);
+        await (0, database_1.connectToDatabase)();
+        console.log(`MongoDB connected to ${database_1.mongoUri}`);
     }
     catch (error) {
         console.warn('MongoDB unavailable, continuing in memory mode:', error);
