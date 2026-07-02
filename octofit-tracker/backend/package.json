@@ -5,6 +5,8 @@
   "main": "dist/index.js",
   "scripts": {
     "build": "tsc",
+    "dev": "tsx watch src/index.ts",
+    "seed": "tsx src/scripts/seed.ts",
     "start": "node dist/index.js"
   },
   "dependencies": {
@@ -13,5 +15,8 @@
     "express": "^5.2.1",
     "mongoose": "^9.7.3",
     "typescript": "^6.0.3"
+  },
+  "devDependencies": {
+    "tsx": "^4.20.0"
   }
 }
